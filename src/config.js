@@ -3,6 +3,7 @@ const { MODE } = require(`${basePath}/constants/blend_mode.js`);
 const { NETWORK } = require(`${basePath}/constants/network.js`);
 const FILE_EXTENSION = 'png';
 const network = NETWORK.eth;
+const {parseCsv} = require('../lib/parse-csv-to-json');
 
 // General metadata for Ethereum
 const namePrefix = "Rick Head";
@@ -26,6 +27,8 @@ const pipe = (...functions) => (value) => {
     return currentFunction(currentValue);
   }, value)
 };
+
+// const rawLayersOptions = parseCsv();
 const rawLayersOptions = {
   top: {
     order: 1,
