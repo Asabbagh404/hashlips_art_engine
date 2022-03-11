@@ -7,7 +7,7 @@ const {parseCsv} = require('../lib/parse-csv-to-json');
 
 // General metadata for Ethereum
 const namePrefix = "Rick Head";
-const description = "Rick Head generative script";
+const description = "Rick Head";
 const baseUri = "ipfs://bafybeihcyruaeza7uyjd6ugicbcrqumejf6uf353e5etdkhotqffwtguva";
 
 const solanaMetadata = {

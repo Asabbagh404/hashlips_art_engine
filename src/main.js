@@ -35,6 +35,10 @@ const {rarityAsMetadata} = require("./config");
 
 let hashlipsGiffer = null;
 
+console.debugger = (ctn) => {
+  debugLogs && console.log(ctn);
+}
+
 const buildSetup = () => {
   if (fs.existsSync(buildDir)) {
     fs.rmdirSync(buildDir, { recursive: true });
@@ -326,11 +330,7 @@ const writeMetaData = (_data) => {
 
 const saveMetaDataSingleFile = (_editionCount) => {
   let metadata = metadataList.find((meta) => meta.edition == _editionCount);
-  debugLogs
-    ? console.log(
-        `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
-      )
-    : null;
+  console.debugger(`Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`);
   fs.writeFileSync(
     `${buildDir}/json/${_editionCount}.json`,
     JSON.stringify(metadata, null, 2)
@@ -366,9 +366,7 @@ const startCreating = async () => {
   if (shuffleLayerConfigurations) {
     abstractedIndexes = shuffle(abstractedIndexes);
   }
-  debugLogs
-    ? console.log("Editions left to create: ", abstractedIndexes)
-    : null;
+  console.debugger("Editions left to create: ", abstractedIndexes)
   while (layerConfigIndex < layerConfigurations.length) {
     const layers = layersSetup(
       layerConfigurations[layerConfigIndex].layersOrder
@@ -386,7 +384,7 @@ const startCreating = async () => {
         });
 
         await Promise.all(loadedElements).then((renderObjectArray) => {
-          debugLogs ? console.log("Clearing canvas") : null;
+          console.debugger("Clearing canvas")
           ctx.clearRect(0, 0, format.width, format.height);
           if (gif.export) {
             hashlipsGiffer = new HashlipsGiffer(
@@ -421,9 +419,7 @@ const startCreating = async () => {
           if (gif.export) {
             hashlipsGiffer.stop();
           }
-          debugLogs
-            ? console.log("Editions left to create: ", abstractedIndexes)
-            : null;
+          console.debugger("Editions left to create: ", abstractedIndexes)
           saveImage(abstractedIndexes[0]);
           addMetadata(newDna, abstractedIndexes[0]);
           saveMetaDataSingleFile(abstractedIndexes[0]);
