@@ -31,6 +31,7 @@ var attributesList = [];
 var dnaList = new Set();
 const DNA_DELIMITER = "-";
 const HashlipsGiffer = require(`${basePath}/modules/HashlipsGiffer.js`);
+const {rarityAsMetadata} = require("./config");
 
 let hashlipsGiffer = null;
 
@@ -46,16 +47,10 @@ const buildSetup = () => {
   }
 };
 
-// const getRarityWeight = (_str) => {
-//   let nameWithoutExtension = _str.slice(0, -4);
-//   var nameWithoutWeight = Number(
-//     nameWithoutExtension.split(rarityDelimiter).pop()
-//   );
-//   if (isNaN(nameWithoutWeight)) {
-//     nameWithoutWeight = 1;
-//   }
-//   return nameWithoutWeight;
-// };
+const getRarityScore = (sumRarityScore) => {
+  const getTotalLayers = Object.keys(layersOptions).length;
+  return ~~(sumRarityScore / getTotalLayers) / 100
+}
 
 const cleanDna = (_str) => {
   const withoutOptions = removeQueryStrings(_str);
@@ -177,6 +172,11 @@ const addAttributes = (_element) => {
   });
 };
 
+const addExtraAttributes = (attribute) => {
+  if (attribute.length === 0) return;
+  attributesList.push(...attribute);
+}
+
 const loadLayerImg = async (_layer) => {
   try {
     return new Promise(async (resolve) => {
@@ -279,6 +279,7 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
 const createDna = (_layers) => {
   const excludedElements = [];
   let randNum = [];
+  let sumRarityScore = 0;
   function sumTotalExcludedWeight(elements) {
     const excludedElementsSanitized = [...new Set(excludedElements)];
     if(excludedElementsSanitized.length === 0) {
@@ -307,6 +308,7 @@ const createDna = (_layers) => {
         if(layer.elements[i].exclude) {
           excludedElements.push(...layer.elements[i].exclude);
         }
+        sumRarityScore += layer.elements[i].weight;
         return randNum.push(
           `${layer.elements[i].id}:${layer.elements[i].filename}${
             layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -315,7 +317,7 @@ const createDna = (_layers) => {
       }
     }
   });
-  return randNum.join(DNA_DELIMITER);
+  return {dna: randNum.join(DNA_DELIMITER), sumRarityScore};
 };
 
 const writeMetaData = (_data) => {
@@ -374,7 +376,7 @@ const startCreating = async () => {
     while (
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
-      let newDna = createDna(layers);
+      let {dna: newDna, sumRarityScore} = createDna(layers);
       if (isDnaUnique(dnaList, newDna)) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];
@@ -410,6 +412,12 @@ const startCreating = async () => {
               hashlipsGiffer.add();
             }
           });
+          addExtraAttributes([
+              (rarityAsMetadata && {
+              trait_type: "rarityScore",
+              value: getRarityScore(sumRarityScore)
+            })
+          ]);
           if (gif.export) {
             hashlipsGiffer.stop();
           }

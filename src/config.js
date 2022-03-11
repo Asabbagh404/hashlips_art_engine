@@ -656,6 +656,8 @@ const background = {
 
 const extraMetadata = {};
 
+const rarityAsMetadata = true;
+
 const rarityDelimiter = "#";
 
 const uniqueDnaTorrance = 10000;
@@ -696,4 +698,5 @@ module.exports = {
   gif,
   preview_gif,
   layersOptions,
+  rarityAsMetadata,
 };
