@@ -30,33 +30,8 @@ const pipe = (...functions) => (value) => {
 
 // const rawLayersOptions = parseCsv();
 const rawLayersOptions = {
-  top: {
-    order: 1,
-    elements: [
-      {
-        filename: 'debardeur_1',
-        weight: 20
-      },
-      {
-        filename: 'debardeur_2',
-        weight: 20
-      },
-      {
-        filename: 'debardeur_3',
-        weight: 20
-      },
-      {
-        filename: 'debardeur_4',
-        weight: 20
-      },
-      {
-        filename: 'debardeur_5',
-        weight: 20
-      },
-    ]
-  },
   pants: {
-    order: 2,
+    order: 1,
     elements: [
       {
         filename: 'army pants_1',
@@ -84,197 +59,33 @@ const rawLayersOptions = {
       },
     ]
   },
-  glasses: {
-    order: 3,
+  top: {
+    order: 2,
     elements: [
       {
-        filename: '3Dglasses_1',
-        weight: 2
+        filename: 'debardeur_1',
+        weight: 20
       },
       {
-        filename: '3Dglasses_2',
-        weight: 2
+        filename: 'debardeur_2',
+        weight: 20
       },
       {
-        filename: 'black frame_1',
-        weight: 2
+        filename: 'debardeur_3',
+        weight: 20
       },
       {
-        filename: 'black frame_2',
-        weight: 2
+        filename: 'debardeur_4',
+        weight: 20
       },
       {
-        filename: 'black frame_3',
-        weight: 2
-      },
-      {
-        filename: 'black frame_4',
-        weight: 2
-      },
-      {
-        filename: 'black frame_5',
-        weight: 2
-      },
-      {
-        filename: 'black frame_6',
-        weight: 2
-      },
-      {
-        filename: 'black frame_7',
-        weight: 2
-      },
-      {
-        filename: 'black frame_8',
-        weight: 2
-      },
-      {
-        filename: 'black frame_9',
-        weight: 2
-      },
-      {
-        filename: 'black frame_10',
-        weight: 2
-      },
-      {
-        filename: 'black frame_11',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_1',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_2',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_3',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_4',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_5',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_6',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_7',
-        weight: 2
-      },
-      {
-        filename: 'love glasses_8',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_1',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_2',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_3',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_4',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_5',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_6',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_7',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_8',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_9',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_10',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_11',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_12',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_13',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_14',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_15',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_16',
-        weight: 2
-      },
-      {
-        filename: 'round sun glasses_17',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_1',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_2',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_3',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_4',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_5',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_6',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_7',
-        weight: 2
-      },
-      {
-        filename: 'sun glasses_8',
-        weight: 2
+        filename: 'debardeur_5',
+        weight: 20
       },
     ]
   },
   hat: {
-    order: 4,
+    order: 3,
     elements: [
       {
         filename: 'bear cap_1',
@@ -526,23 +337,209 @@ const rawLayersOptions = {
       },
     ]
   },
+  glasses: {
+    order: 4,
+    elements: [
+      {
+        filename: '3Dglasses_1',
+        weight: 2
+      },
+      {
+        filename: '3Dglasses_2',
+        weight: 2
+      },
+      {
+        filename: 'black frame_1',
+        weight: 2
+      },
+      {
+        filename: 'black frame_2',
+        weight: 2
+      },
+      {
+        filename: 'black frame_3',
+        weight: 2
+      },
+      {
+        filename: 'black frame_4',
+        weight: 2
+      },
+      {
+        filename: 'black frame_5',
+        weight: 2
+      },
+      {
+        filename: 'black frame_6',
+        weight: 2
+      },
+      {
+        filename: 'black frame_7',
+        weight: 2
+      },
+      {
+        filename: 'black frame_8',
+        weight: 2
+      },
+      {
+        filename: 'black frame_9',
+        weight: 2
+      },
+      {
+        filename: 'black frame_10',
+        weight: 2
+      },
+      {
+        filename: 'black frame_11',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_1',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_2',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_3',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_4',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_5',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_6',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_7',
+        weight: 2
+      },
+      {
+        filename: 'love glasses_8',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_1',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_2',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_3',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_4',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_5',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_6',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_7',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_8',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_9',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_10',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_11',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_12',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_13',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_14',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_15',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_16',
+        weight: 2
+      },
+      {
+        filename: 'round sun glasses_17',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_1',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_2',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_3',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_4',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_5',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_6',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_7',
+        weight: 2
+      },
+      {
+        filename: 'sun glasses_8',
+        weight: 2
+      },
+    ]
+  },
   boots: {
     order: 5,
     elements: [
       {
         filename: 'army boots_1',
         weight: 10,
-        exclude: ['3Dglasses_1', '3Dglasses_2'],
       },
       {
         filename: 'army boots_2',
         weight: 20,
-        exclude: ['3Dglasses_1', '3Dglasses_2'],
       },
       {
         filename: 'army boots_3',
         weight: 20,
-        exclude: ['3Dglasses_1', '3Dglasses_2'],
       },
       {
         filename: 'army boots_4',
