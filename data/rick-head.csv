@@ -1,0 +1,13 @@
+type,order,name,weight,exclude
+boots,1,foo1,20,"foo, bar, titi"
+boots,1,foo2,20,"foo, bar, titi"
+boots,1,foo3,20,
+boots,1,foo4,20,
+boots,1,foo5,10,
+boots,1,foo6,20,
+hat,2,foo,20,"foo, bar"
+hat,2,foo,20,"foo, bar"
+hat,2,foo,20,"foo, bar"
+jewls,2,bar,20,"foo, bar"
+jewls,2,bar2,20,"foo, bar"
+jewls,2,bar3,20,"foo, bar"

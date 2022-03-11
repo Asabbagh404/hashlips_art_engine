@@ -21,6 +21,7 @@ const {
   network,
   solanaMetadata,
   gif,
+  layersOptions,
 } = require(`${basePath}/src/config.js`);
 const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
@@ -45,16 +46,16 @@ const buildSetup = () => {
   }
 };
 
-const getRarityWeight = (_str) => {
-  let nameWithoutExtension = _str.slice(0, -4);
-  var nameWithoutWeight = Number(
-    nameWithoutExtension.split(rarityDelimiter).pop()
-  );
-  if (isNaN(nameWithoutWeight)) {
-    nameWithoutWeight = 1;
-  }
-  return nameWithoutWeight;
-};
+// const getRarityWeight = (_str) => {
+//   let nameWithoutExtension = _str.slice(0, -4);
+//   var nameWithoutWeight = Number(
+//     nameWithoutExtension.split(rarityDelimiter).pop()
+//   );
+//   if (isNaN(nameWithoutWeight)) {
+//     nameWithoutWeight = 1;
+//   }
+//   return nameWithoutWeight;
+// };
 
 const cleanDna = (_str) => {
   const withoutOptions = removeQueryStrings(_str);
@@ -68,38 +69,35 @@ const cleanName = (_str) => {
   return nameWithoutWeight;
 };
 
-const getElements = (path) => {
-  return fs
-    .readdirSync(path)
-    .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
-    .map((i, index) => {
-      if (i.includes("-")) {
-        throw new Error(`layer name can not contain dashes, please fix: ${i}`);
-      }
-      return {
-        id: index,
-        name: cleanName(i),
-        filename: i,
-        path: `${path}${i}`,
-        weight: getRarityWeight(i),
-      };
-    });
+const getElements = (name, path) => {
+  return layersOptions[name]
+      .elements
+      .map(({weight, filename, exclude}, index) => {
+        return {
+          id: index,
+          name: cleanName(filename),
+          filename,
+          weight,
+          path: `${path}${filename}`,
+          exclude,
+        }
+      })
 };
 
 const layersSetup = (layersOrder) => {
   const layers = layersOrder.map((layerObj, index) => ({
     id: index,
-    elements: getElements(`${layersDir}/${layerObj.name}/`),
+    elements: getElements(layerObj.name, `${layersDir}/${layerObj.name}/`),
     name:
-      layerObj.options?.["displayName"] != undefined
+      layerObj.options?.["displayName"] !== undefined
         ? layerObj.options?.["displayName"]
         : layerObj.name,
     blend:
-      layerObj.options?.["blend"] != undefined
+      layerObj.options?.["blend"] !== undefined
         ? layerObj.options?.["blend"]
         : "source-over",
     opacity:
-      layerObj.options?.["opacity"] != undefined
+      layerObj.options?.["opacity"] !== undefined
         ? layerObj.options?.["opacity"]
         : 1,
     bypassDNA:
@@ -257,7 +255,6 @@ const filterDNAOptions = (_dna) => {
 
     return options.bypassDNA;
   });
-
   return filteredDNA.join(DNA_DELIMITER);
 };
 
@@ -280,18 +277,36 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
 };
 
 const createDna = (_layers) => {
+  const excludedElements = [];
   let randNum = [];
+  function sumTotalExcludedWeight(elements) {
+    const excludedElementsSanitized = [...new Set(excludedElements)];
+    if(excludedElementsSanitized.length === 0) {
+      return 0;
+    }
+    return elements.reduce((total, element) => {
+        if (excludedElementsSanitized.includes(element.filename)) {
+          return total += element.weight;
+        }
+    }, 0);
+  }
   _layers.forEach((layer) => {
     var totalWeight = 0;
     layer.elements.forEach((element) => {
       totalWeight += element.weight;
     });
     // number between 0 - totalWeight
-    let random = Math.floor(Math.random() * totalWeight);
+    let random = ~~(Math.random() * totalWeight - sumTotalExcludedWeight(layer.elements));
     for (var i = 0; i < layer.elements.length; i++) {
       // subtract the current weight from the random weight until we reach a sub zero value.
+      if (excludedElements.includes(layer.elements[i].filename)) {
+        continue;
+      }
       random -= layer.elements[i].weight;
       if (random < 0) {
+        if(layer.elements[i].exclude) {
+          excludedElements.push(...layer.elements[i].exclude);
+        }
         return randNum.push(
           `${layer.elements[i].id}:${layer.elements[i].filename}${
             layer.bypassDNA ? "?bypassDNA=true" : ""

@@ -12,6 +12,7 @@
     ]
   },
   "scripts": {
+    "test": "node lib/parse-csv-to-json.js",
     "build": "node index.js",
     "generate": "node index.js",
     "rarity": "node utils/rarity.js",
